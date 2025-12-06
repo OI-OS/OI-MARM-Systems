@@ -344,6 +344,11 @@
           "then:book",
           "else:general"
         ]
+      },
+      "metadata": {
+        "patterns": [
+          "default:{}"
+        ]
       }
     },
     "marm_log_session": {
@@ -368,6 +373,11 @@
           "regex:(?:to|in)\\s+session\\s+(.+)",
           "regex:session\\s+(.+)",
           "default:default"
+        ]
+      },
+      "metadata": {
+        "patterns": [
+          "default:{}"
         ]
       }
     },
@@ -423,6 +433,11 @@
           "remove:add,save,notebook,to,with,content",
           "regex:(?:with\\s+content\\s+|content\\s+is\\s+)(.+)",
           "regex:(.+)"
+        ]
+      },
+      "metadata": {
+        "patterns": [
+          "default:{}"
         ]
       }
     },
