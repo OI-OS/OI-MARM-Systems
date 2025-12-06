@@ -5,7 +5,10 @@ Memory Accurate Response Mode for Model Context Protocol
 This is a STDIO-compatible version using FastMCP instead of FastAPI.
 All core business logic is reused from the existing modules.
 
-Author: OI-OS (converted from FastAPI version)
+This enables MARM to work with MCP clients that require STDIO transport,
+such as orchestration platforms and command-line tools.
+
+Author: MARM Systems (STDIO transport addition)
 Version: 2.2.6
 """
 
@@ -13,6 +16,7 @@ import sys
 import os
 import asyncio
 from pathlib import Path
+from typing import Optional
 
 # Add the server directory to the path
 sys.path.insert(0, str(Path(__file__).parent))
@@ -208,7 +212,7 @@ async def marm_contextual_log(
     content: str,
     session_name: str = "default",
     context_type: str = "general",
-    metadata: dict = None
+    metadata: Optional[dict] = None
 ) -> dict:
     """
     📝 Log contextual information with automatic categorization
@@ -280,7 +284,7 @@ async def marm_log_session(session_name: str) -> dict:
 async def marm_log_entry(
     content: str,
     session_name: str = "default",
-    metadata: dict = None
+    metadata: Optional[dict] = None
 ) -> dict:
     """
     📝 Log important information to MARM's memory system
@@ -411,7 +415,7 @@ async def marm_log_delete(
 async def marm_notebook_add(
     notebook_name: str,
     content: str,
-    metadata: dict = None
+    metadata: Optional[dict] = None
 ) -> dict:
     """
     📔 Add structured information to MARM notebooks

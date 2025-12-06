@@ -22,17 +22,9 @@ Memory Accurate Response Mode v2.2.6 - The intelligent persistent memory system 
 
 [![Official MARM](https://img.shields.io/badge/Official-MARM-blue?style=for-the-badge)](https://github.com/Lyellr88/MARM-Systems)
 
-> **⚠️ Non-Official Fork Notice:** This is a **non-official fork** of the MARM Systems project.  
-> The **official MARM repository** is maintained at: **[https://github.com/Lyellr88/MARM-Systems](https://github.com/Lyellr88/MARM-Systems)**  
-> All official versions, releases, and updates come from the official repository.
+**Note:** This is the *official* MARM repository. All official versions and releases are managed here.
 
-**What's Different in This Fork:**
-- ✅ **STDIO Transport Support**: Added FastMCP-based STDIO transport compatibility for OI OS integration
-- ✅ **OI OS Integration**: Full compatibility with OI OS (Brain Trust 4) MCP orchestration platform
-- ✅ **Natural Language Commands**: Enhanced parameter extraction for natural language interaction via OI OS
-
-**Credit & Attribution:**
-This fork is based on the excellent work by [@Lyellr88](https://github.com/Lyellr88) and the MARM Systems team. All core functionality, architecture, and protocol design credit goes to the [official MARM repository](https://github.com/Lyellr88/MARM-Systems). This fork adds STDIO transport support to enable integration with OI OS while maintaining full compatibility with the original MARM protocol and functionality.  
+Forks may experiment, but official updates will always come from this repo.  
 
 </div>
 
@@ -132,22 +124,45 @@ marm-mcp-server
 claude mcp add --transport http marm-memory http://localhost:8001/mcp
 ```
 
-**OI OS Installation (STDIO Transport - This Fork):**
+**STDIO Transport (Alternative):**
+
+For MCP clients that require STDIO transport (orchestration platforms, CLI tools):
 
 ```bash
-# Install via OI OS
-oi install https://github.com/OI-OS/OI-MARM-Systems.git
+# Install STDIO dependencies
+pip install -r marm-mcp-server/requirements_stdio.txt
 
-# Or connect manually
-oi connect OI-MARM-Systems python3 MCP-servers/OI-MARM-Systems/marm-mcp-server/server_stdio.py run
+# Run STDIO server
+python3 marm-mcp-server/server_stdio.py run
 ```
+
+Configure in your MCP client with STDIO transport:
+```json
+{
+  "mcpServers": {
+    "marm-memory": {
+      "command": "python3",
+      "args": ["path/to/marm-mcp-server/server_stdio.py", "run"]
+    }
+  }
+}
+```
+
+**Transport Comparison:**
+
+| Feature | HTTP/WebSocket | STDIO |
+|---------|---------------|-------|
+| **Deployment** | Requires HTTP server | Process-based |
+| **Resource Isolation** | Shared server | Per-process |
+| **Platform Support** | Web-based clients | CLI/orchestration tools |
+| **Setup Complexity** | Medium (port management) | Low (direct execution) |
+| **Use Case** | Web apps, remote access | Local tools, automation |
 
 **Key Information:**
 
-- **Server Endpoint** (HTTP): `http://localhost:8001/mcp`
-- **API Documentation** (HTTP): `http://localhost:8001/docs`
-- **STDIO Transport** (This Fork): Direct process communication via FastMCP
-- **Supported Clients**: Claude Code, Qwen CLI, Gemini CLI, OI OS, and any MCP-compatible LLM client or LLM platform
+- **Server Endpoint**: `http://localhost:8001/mcp`
+- **API Documentation**: `http://localhost:8001/docs`
+- **Supported Clients**: Claude Code, Qwen CLI, Gemini CLI, and any MCP-compatible LLM client or LLM platform
 
 **All Installation Options:**
 
@@ -384,9 +399,9 @@ If MARM helps with your AI memory needs, please star the repository to support d
 
 This project is licensed under the MIT License. Forks and derivative works are permitted.  
 
-**Official Repository:** The **MARM name** and **version numbering** are reserved for releases from the [official MARM repository](https://github.com/Lyellr88/MARM-Systems).
+However, use of the **MARM name** and **version numbering** is reserved for releases from the [official MARM repository](https://github.com/Lyellr88/MARM-Systems).
 
-This fork clearly indicates it is a non-official derivative that adds STDIO transport support for OI OS integration. All credit for the core MARM protocol, architecture, and functionality belongs to the official MARM Systems project.
+Derivatives should clearly indicate they are unofficial or experimental.
 
 ---
 
