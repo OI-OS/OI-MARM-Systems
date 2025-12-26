@@ -270,29 +270,29 @@
   ],
   "parameter_extractors": {
     "marm_start": {
-      "OI-MARM-Systems::marm_start.session_name": "regex:(?:start|activate)\\s+marm\\s+(?:for\\s+)?(?:session\\s+)?(.+)|default:default"
+      "OI-MARM-Systems::marm_start.session_name": "regex:(?:start|activate)\\s+marm\\s+(?:for\\s+)?(?:session\\s+)?(.+?)(?:\\s+and|\\s+for|$)|default:default"
     },
     "marm_refresh": {
-      "OI-MARM-Systems::marm_refresh.session_name": "regex:(?:refresh)\\s+marm\\s+(?:for\\s+)?(?:session\\s+)?(.+)|default:default"
+      "OI-MARM-Systems::marm_refresh.session_name": "regex:(?:refresh)\\s+marm\\s+(?:for\\s+)?(?:session\\s+)?(.+?)(?:\\s+and|\\s+for|$)|default:default"
     },
     "marm_smart_recall": {
-      "OI-MARM-Systems::marm_smart_recall.query": "remove:recall,memory,search,find,remember,for,in,from,session",
-      "OI-MARM-Systems::marm_smart_recall.session_name": "regex:(?:in|from)\\s+session\\s+(.+?)(?:\\s+limit|\\s+search|$)|default:default",
+      "OI-MARM-Systems::marm_smart_recall.query": "regex:(?i)(?:(?:recall|search|find)\\s+memory|remember)(?:\\s+about|\\s+for)?\\s+(.+?)(?:\\s+in|\\s+from|\\s+session|\\s+limit|$)|default:null",
+      "OI-MARM-Systems::marm_smart_recall.session_name": "regex:(?:in|from)\\s+session\\s+(.+?)(?:\\s+limit|\\s+search|\\s+all|$)|default:default",
       "OI-MARM-Systems::marm_smart_recall.limit": "regex:limit\\s+(\\d+)|default:5",
-      "OI-MARM-Systems::marm_smart_recall.search_all": "conditional:if_contains:all sessions,all,everywhere,across|then:true|else:false"
+      "OI-MARM-Systems::marm_smart_recall.search_all": "conditional:if_contains:all sessions|then:true|else:if_contains:all,everywhere,across|then:true|else:default:false"
     },
     "marm_contextual_log": {
-      "OI-MARM-Systems::marm_contextual_log.content": "remove:log,save,context,memory,to,in,session",
-      "OI-MARM-Systems::marm_contextual_log.session_name": "regex:(?:to|in)\\s+session\\s+(.+)|default:default",
-      "OI-MARM-Systems::marm_contextual_log.context_type": "conditional:if_contains:code,function,class,bug,error,fix,implement|then:code|else:general",
+      "OI-MARM-Systems::marm_contextual_log.content": "regex:(?i)(?:log|save)\\s+context(?:\\s*:)?\\s+(.+?)(?:\\s+to\\s+session|\\s+in\\s+session|$)|default:null",
+      "OI-MARM-Systems::marm_contextual_log.session_name": "regex:(?:to|in)\\s+session\\s+(.+?)(?:\\s+with|\\s+content|$)|default:default",
+      "OI-MARM-Systems::marm_contextual_log.context_type": "conditional:if_contains:code,function,class,bug,error,fix,implement,programming|then:code|else:if_contains:general,note,info,information|then:general|else:default:general",
       "OI-MARM-Systems::marm_contextual_log.metadata": "default:{}"
     },
     "marm_log_session": {
-      "OI-MARM-Systems::marm_log_session.session_name": "regex:(?:create|new|switch)\\s+session\\s+(.+)"
+      "OI-MARM-Systems::marm_log_session.session_name": "regex:(?:create|new|switch)\\s+session\\s+(.+?)(?:\\s+and|\\s+for|$)|default:default"
     },
     "marm_log_entry": {
-      "OI-MARM-Systems::marm_log_entry.content": "remove:log,add,entry,to,in,session",
-      "OI-MARM-Systems::marm_log_entry.session_name": "regex:(?:to|in)\\s+session\\s+(.+)|default:default",
+      "OI-MARM-Systems::marm_log_entry.content": "regex:(?i)(?:log\\s+entry|add\\s+log)(?:\\s*:)?\\s+(.+?)(?:\\s+to|\\s+in|\\s+session|$)|default:null",
+      "OI-MARM-Systems::marm_log_entry.session_name": "regex:(?:to|in)\\s+session\\s+(.+?)(?:\\s+with|\\s+content|$)|default:default",
       "OI-MARM-Systems::marm_log_entry.metadata": "default:{}"
     },
     "marm_log_show": {
@@ -301,37 +301,37 @@
       "OI-MARM-Systems::marm_log_show.offset": "regex:offset\\s+(\\d+)|default:0"
     },
     "marm_log_delete": {
-      "OI-MARM-Systems::marm_log_delete.session_name": "regex:(?:delete|remove)\\s+session\\s+(.+)|default:null",
-      "OI-MARM-Systems::marm_log_delete.memory_id": "regex:(?:delete|remove)\\s+log\\s+(?:entry\\s+)?(?:id\\s+)?(.+)|default:null"
+      "OI-MARM-Systems::marm_log_delete.session_name": "regex:(?:delete|remove)\\s+session\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null",
+      "OI-MARM-Systems::marm_log_delete.memory_id": "regex:(?:delete|remove)\\s+(?:log|entry|memory)\\s+(?:id\\s+)?([a-f0-9-]{8,})|default:null"
     },
     "marm_notebook_add": {
-      "OI-MARM-Systems::marm_notebook_add.notebook_name": "regex:(?:add|save)\\s+notebook\\s+(.+?)(?:\\s+with|\\s+content|$)",
-      "OI-MARM-Systems::marm_notebook_add.content": "remove:add,save,notebook,to,with,content",
+      "OI-MARM-Systems::marm_notebook_add.notebook_name": "regex:(?:add|save)\\s+notebook\\s+(.+?)(?:\\s+with|\\s+content|$)|default:null",
+      "OI-MARM-Systems::marm_notebook_add.content": "regex:(?i)(?:add|save)\\s+notebook\\s+(?:.+?\\s+)?with\\s+content(?:\\s*:)?\\s+(.+?)(?:\\s+and|\\s+for|$)|default:null",
       "OI-MARM-Systems::marm_notebook_add.metadata": "default:{}"
     },
     "marm_notebook_use": {
-      "OI-MARM-Systems::marm_notebook_use.notebook_name": "remove:use,get,load,notebook"
+      "OI-MARM-Systems::marm_notebook_use.notebook_name": "regex:(?:use|get|load)\\s+notebook\\s+(.+?)(?:\\s+and|\\s+for|$)|default:null"
     },
     "marm_notebook_show": {
-      "OI-MARM-Systems::marm_notebook_show.notebook_name": "regex:(?:show|list)\\s+notebooks?(?:\\s+(.+))?|default:null"
+      "OI-MARM-Systems::marm_notebook_show.notebook_name": "regex:(?:show|list)\\s+notebooks?(?:\\s+(.+?))?(?:\\s+and|\\s+all|$)|default:null"
     },
     "marm_notebook_status": {
-      "OI-MARM-Systems::marm_notebook_status.notebook_name": "regex:notebook\\s+(?:status|info)\\s+(.+)|default:null"
+      "OI-MARM-Systems::marm_notebook_status.notebook_name": "regex:notebook\\s+(?:status|info)\\s+(.+?)(?:\\s+and|\\s+for|$)|default:null"
     },
     "marm_notebook_clear": {
-      "OI-MARM-Systems::marm_notebook_clear.notebook_name": "regex:(?:clear|empty)\\s+notebook\\s+(.+)"
+      "OI-MARM-Systems::marm_notebook_clear.notebook_name": "regex:(?:clear|empty)\\s+notebook\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null"
     },
     "marm_notebook_delete": {
-      "OI-MARM-Systems::marm_notebook_delete.notebook_name": "regex:(?:delete|remove)\\s+notebook\\s+(.+)"
+      "OI-MARM-Systems::marm_notebook_delete.notebook_name": "regex:(?:delete|remove)\\s+notebook\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null"
     },
     "marm_summary": {
-      "OI-MARM-Systems::marm_summary.session_name": "regex:(?:summarize|summary)\\s+(?:session\\s+)?(.+?)(?:\\s+limit|$)|default:default",
+      "OI-MARM-Systems::marm_summary.session_name": "regex:(?:summarize|summary)\\s+(?:session\\s+)?(.+?)(?:\\s+limit|\\s+with|$)|default:default",
       "OI-MARM-Systems::marm_summary.limit": "regex:limit\\s+(\\d+)|default:20"
     },
     "marm_context_bridge": {
-      "OI-MARM-Systems::marm_context_bridge.from_session": "regex:(?:bridge|transfer|copy)\\s+context\\s+from\\s+session\\s+(.+?)(?:\\s+to|$)|default:default",
-      "OI-MARM-Systems::marm_context_bridge.to_session": "regex:(?:to|into)\\s+session\\s+(.+)",
-      "OI-MARM-Systems::marm_context_bridge.query": "regex:(?:with|matching|for)\\s+(.+)|default:null"
+      "OI-MARM-Systems::marm_context_bridge.from_session": "regex:(?:bridge|transfer|copy)\\s+context\\s+from\\s+session\\s+(.+?)(?:\\s+to|\\s+into|$)|default:default",
+      "OI-MARM-Systems::marm_context_bridge.to_session": "regex:(?:to|into)\\s+session\\s+(.+?)(?:\\s+with|\\s+matching|$)|default:default",
+      "OI-MARM-Systems::marm_context_bridge.query": "regex:(?:with|matching|for|about)\\s+(.+?)(?:\\s+to|\\s+from|$)|default:null"
     }
   },
   "reminder_message": "🧠 MARM is active! Use natural language to interact with your memory system."
