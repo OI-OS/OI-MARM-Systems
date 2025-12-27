@@ -53,11 +53,6 @@
       "priority": 8
     },
     {
-      "keyword": "log context",
-      "tool_name": "marm_contextual_log",
-      "priority": 10
-    },
-    {
       "keyword": "save context",
       "tool_name": "marm_contextual_log",
       "priority": 10
@@ -66,6 +61,11 @@
       "keyword": "log memory",
       "tool_name": "marm_contextual_log",
       "priority": 10
+    },
+    {
+      "keyword": "contextual log",
+      "tool_name": "marm_contextual_log",
+      "priority": 9
     },
     {
       "keyword": "create session",
@@ -83,14 +83,19 @@
       "priority": 10
     },
     {
-      "keyword": "log entry",
+      "keyword": "add log",
       "tool_name": "marm_log_entry",
       "priority": 10
     },
     {
-      "keyword": "add log",
+      "keyword": "add log entry",
       "tool_name": "marm_log_entry",
       "priority": 10
+    },
+    {
+      "keyword": "create log",
+      "tool_name": "marm_log_entry",
+      "priority": 9
     },
     {
       "keyword": "show logs",
@@ -108,17 +113,12 @@
       "priority": 10
     },
     {
-      "keyword": "delete log",
+      "keyword": "erase log entry",
       "tool_name": "marm_log_delete",
       "priority": 10
     },
     {
-      "keyword": "remove log",
-      "tool_name": "marm_log_delete",
-      "priority": 10
-    },
-    {
-      "keyword": "delete session",
+      "keyword": "remove log entry",
       "tool_name": "marm_log_delete",
       "priority": 10
     },
@@ -183,7 +183,7 @@
       "priority": 10
     },
     {
-      "keyword": "delete notebook",
+      "keyword": "erase notebook",
       "tool_name": "marm_notebook_delete",
       "priority": 10
     },
@@ -291,18 +291,18 @@
       "OI-MARM-Systems::marm_log_session.session_name": "regex:(?:create|new|switch)\\s+session\\s+(.+?)(?:\\s+and|\\s+for|$)|default:default"
     },
     "marm_log_entry": {
-      "OI-MARM-Systems::marm_log_entry.content": "regex:(?i)(?:log\\s+entry|add\\s+log)(?:\\s*:)?\\s+(.+?)(?:\\s+to|\\s+in|\\s+session|$)|default:null",
+      "OI-MARM-Systems::marm_log_entry.content": "regex:(?i)(?:log\\s+entry|add\\s+log(?:\\s+entry)?)(?:\\s*:)?\\s+(.+?)(?:\\s+to|\\s+in|\\s+session|$)|default:null",
       "OI-MARM-Systems::marm_log_entry.session_name": "regex:(?:to|in)\\s+session\\s+(.+?)(?:\\s+with|\\s+content|$)|default:default",
       "OI-MARM-Systems::marm_log_entry.metadata": "default:{}"
     },
     "marm_log_show": {
-      "OI-MARM-Systems::marm_log_show.session_name": "regex:(?:show|list|view)\\s+logs?(?:\\s+from\\s+session\\s+)?(.+?)(?:\\s+limit|\\s+offset|$)|default:default",
+      "OI-MARM-Systems::marm_log_show.session_name": "regex:(?:show|list|view)\\s+logs?\\s+from\\s+(?:session\\s+)?(.+?)(?:\\s+limit|\\s+offset|$)|default:default",
       "OI-MARM-Systems::marm_log_show.limit": "regex:limit\\s+(\\d+)|default:10",
       "OI-MARM-Systems::marm_log_show.offset": "regex:offset\\s+(\\d+)|default:0"
     },
     "marm_log_delete": {
-      "OI-MARM-Systems::marm_log_delete.session_name": "regex:(?:delete|remove)\\s+session\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null",
-      "OI-MARM-Systems::marm_log_delete.memory_id": "regex:(?:delete|remove)\\s+(?:log|entry|memory)\\s+(?:id\\s+)?([a-f0-9-]{8,})|default:null"
+      "OI-MARM-Systems::marm_log_delete.session_name": "regex:(?:delete|remove|erase)\\s+session\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null",
+      "OI-MARM-Systems::marm_log_delete.memory_id": "regex:(?:delete|remove|erase)\\s+(?:log\\s+)?(?:entry|memory)(?:\\s+id)?\\s+([a-f0-9-]{8,})|default:null"
     },
     "marm_notebook_add": {
       "OI-MARM-Systems::marm_notebook_add.notebook_name": "regex:(?:add|save)\\s+notebook\\s+(.+?)(?:\\s+with|\\s+content|$)|default:null",
@@ -313,7 +313,7 @@
       "OI-MARM-Systems::marm_notebook_use.notebook_name": "regex:(?:use|get|load)\\s+notebook\\s+(.+?)(?:\\s+and|\\s+for|$)|default:null"
     },
     "marm_notebook_show": {
-      "OI-MARM-Systems::marm_notebook_show.notebook_name": "regex:(?:show|list)\\s+notebooks?(?:\\s+(.+?))?(?:\\s+and|\\s+all|$)|default:null"
+      "OI-MARM-Systems::marm_notebook_show.notebook_name": "regex:(?:show|list)\\s+notebooks?\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null"
     },
     "marm_notebook_status": {
       "OI-MARM-Systems::marm_notebook_status.notebook_name": "regex:notebook\\s+(?:status|info)\\s+(.+?)(?:\\s+and|\\s+for|$)|default:null"
@@ -322,7 +322,7 @@
       "OI-MARM-Systems::marm_notebook_clear.notebook_name": "regex:(?:clear|empty)\\s+notebook\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null"
     },
     "marm_notebook_delete": {
-      "OI-MARM-Systems::marm_notebook_delete.notebook_name": "regex:(?:delete|remove)\\s+notebook\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null"
+      "OI-MARM-Systems::marm_notebook_delete.notebook_name": "regex:(?:delete|remove|erase)\\s+notebook\\s+(.+?)(?:\\s+and|\\s+all|$)|default:null"
     },
     "marm_summary": {
       "OI-MARM-Systems::marm_summary.session_name": "regex:(?:summarize|summary)\\s+(?:session\\s+)?(.+?)(?:\\s+limit|\\s+with|$)|default:default",
