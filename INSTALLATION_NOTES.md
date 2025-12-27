@@ -13,7 +13,7 @@
    - **server.json claims:** stdio transport support
    - **Actual implementation:** HTTP/WebSocket server (FastAPI)
    - **OI OS uses:** stdio transport
-   - **Impact:** Direct connection via `brain-trust4 connect` may not work
+   - **Impact:** Direct connection via `oi connect` may not work
 
 3. **Server Architecture**
    - Runs as FastAPI HTTP server on port 8001

@@ -28,7 +28,7 @@ Memory Accurate Response Mode v2.2.6 - The intelligent persistent memory system 
 
 **What's Different in This Fork:**
 - ✅ **STDIO Transport Support**: Added FastMCP-based STDIO transport compatibility for OI OS integration
-- ✅ **OI OS Integration**: Full compatibility with OI OS (Brain Trust 4) MCP orchestration platform
+- ✅ **OI OS Integration**: Full compatibility with OI OS MCP orchestration platform
 - ✅ **Natural Language Commands**: Enhanced parameter extraction for natural language interaction via OI OS
 
 **Credit & Attribution:**
